@@ -3,6 +3,10 @@ package myagents;
 //import myagents.LocationVisualisationPlugin;
 import org.apache.log4j.Logger;
 
+
+import actions.DemandHandler;
+//import uk.ac.imperial.evpool.EvEnvService;
+//import uk.ac.imperial.evpool.Inject;
 import uk.ac.imperial.presage2.core.environment.EnvironmentServiceProvider;
 import uk.ac.imperial.presage2.core.environment.EnvironmentSharedStateAccess;
 import uk.ac.imperial.presage2.core.environment.UnavailableServiceException;
@@ -16,35 +20,35 @@ import uk.ac.imperial.presage2.util.location.MoveHandler;
 import uk.ac.imperial.presage2.util.location.ParticipantLocationService;
 import uk.ac.imperial.presage2.util.location.area.Area;
 import uk.ac.imperial.presage2.util.location.area.AreaService;
+import uk.ac.imperial.presage2.core.simulator.RunnableSimulation;
 
 public class SimpleSim extends RunnableSimulation {
 
 	//private PoolAgentService game;
 	//private Scenario scenario;
-	//private final Logger logger = Logger.getLogger(this.getClass());
-	public TempPoolAgent game;
+	
+	private final Logger logger = Logger.getLogger(this.getClass());
+	
+	public PoolAgentService game;
+
 	@Parameter(name = "size")
 	public int size;
-
+	
 	@Parameter(name = "agents", optional = true)
 	public int agents = 2;
 
 	@Override
 	public void initialiseScenario(Scenario scenario) {
-		addModule(Area.Bind.area2D(size, size));
 		addModule(new AbstractEnvironmentModule()
-				.addParticipantEnvironmentService(
-						PoolAgentService.class)
-				.addParticipantGlobalEnvironmentService(AreaService.class));
-
-
-		//scenario.addAgent(new PoolAgentService(Random.randomUUID(), "Pool Agent Service"));
-		//scenario.addAgent(new PoolAgentService(stateEngine));
+				.addParticipantGlobalEnvironmentService(SimpleEnvService.class)
+				.addActionHandler(DemandHandler.class)
+				//Add the participant service and any other additional environment services here too
+				);
 		
-		 game = new TempPoolAgent(Random.randomUUID(), "Game Service");
-		
+		 
+		 
 		for (int i = 0; i < agents; i++) {
-			scenario.addAgent(new ProsumerAgent(
+			scenario.addAgent(new SimpleAgent(
 					Random.randomUUID(),
 					"agent" + i,
 					Random.randomInt(size), 

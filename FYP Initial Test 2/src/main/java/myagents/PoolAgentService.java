@@ -7,10 +7,10 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.apache.log4j.Logger;
-import org.drools.runtime.StatefulKnowledgeSession;
 
 import uk.ac.imperial.presage2.core.environment.ActionHandlingException;
 import uk.ac.imperial.presage2.core.environment.EnvironmentService;
+import uk.ac.imperial.presage2.core.environment.EnvironmentServiceProvider;
 import uk.ac.imperial.presage2.core.environment.EnvironmentSharedStateAccess;
 import uk.ac.imperial.presage2.core.environment.ParticipantSharedState;
 import uk.ac.imperial.presage2.core.environment.UnavailableServiceException;
@@ -28,20 +28,17 @@ public class PoolAgentService extends EnvironmentService
 {
 	//private final Logger logger = Logger.getLogger(this.getClass());
 	
-	
-//	protected PoolAgentService(EnvironmentSharedStateAccess sharedState) {
-//		super(sharedState);
-//		// TODO Auto-generated constructor stub
-//	}
-	
-	final StatefulKnowledgeSession session;
+
+	EnvironmentServiceProvider serviceProvider;
+	private double Power_Pool = 0;
+	//private double Generation_Pool = 0;
+	private double Total_Demand = 0;
 	
 	@Inject
 	protected PoolAgentService(EnvironmentSharedStateAccess sharedState,
-			StatefulKnowledgeSession session, EventBus eb) {
+			EnvironmentServiceProvider serviceProvider) {
 		super(sharedState);
-		this.session = session;
-		eb.subscribe(this);
+		this.serviceProvider = serviceProvider;
 	}
 	
 	@Initialisor
@@ -49,10 +46,6 @@ public class PoolAgentService extends EnvironmentService
 	{
 		
 	}
-	private double Power_Pool = 0;
-	//private double Generation_Pool = 0;
-	private double Total_Demand = 0;
-	
 	
 	public void addtoPool (double amount)
 	{
