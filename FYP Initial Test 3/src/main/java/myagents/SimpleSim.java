@@ -41,6 +41,7 @@ public class SimpleSim extends RunnableSimulation {
 	public void initialiseScenario(Scenario scenario) {
 		addModule(new AbstractEnvironmentModule()
 				.addParticipantGlobalEnvironmentService(SimpleEnvService.class)
+				.addParticipantEnvironmentService(SimpleParticipantService.class)
 				.addActionHandler(DemandHandler.class)
 				//Add the participant service and any other additional environment services here too
 				);
