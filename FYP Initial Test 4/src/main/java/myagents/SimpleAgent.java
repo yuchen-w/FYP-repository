@@ -21,10 +21,10 @@ import uk.ac.imperial.presage2.util.participant.AbstractParticipant;
 
 public class SimpleAgent extends AbstractParticipant 
 {
-    private double Power_Consumption = 10;
+    private double Power_Consumption = 0;
     private double Power_Allocation = 0;
-    private double Power_Generation = 5;
-    private double Power_Storage = 0;
+    private double Power_Generation = 0;
+    
     
     Demand demand;
     
@@ -41,7 +41,6 @@ public class SimpleAgent extends AbstractParticipant
         super(id, name);
         this.Power_Allocation = allocation;
         this.Power_Consumption = consumption;
-        this.Power_Storage = consumption - allocation;
     }
 
     @Initialisor
@@ -63,21 +62,19 @@ public class SimpleAgent extends AbstractParticipant
     public void step(int t) throws ActionHandlingException {
         logger.info("My consumption is: " + this.Power_Consumption);
         logger.info("My allocation is: " + this.Power_Allocation);
-        logger.info("My storage is: " + this.Power_Storage);
         
         try {
 			this.demand = new Demand(1);
+			logger.info("this.Demand is now : " + this.demand.getQuantity());
 			environment.act(demand, getID(), authkey);
 		} catch (ActionHandlingException e) {
 			logger.warn("Failed to demand", e);
 		}
+        logger.info("Total demand is now : " + this.EnvService.getTotalDemand());
         
-        	
-        //logger.info("Total demand is now : " + this.EnvService.getTotalDemand());
-        logger.info("This demand is now : " + this.demand.getQuantity());
         
     }
-
+    
      /*@Override
      protected Set<ParticipantSharedState> getSharedState() {
          Set<ParticipantSharedState> Power_Pool = super.getSharedState();

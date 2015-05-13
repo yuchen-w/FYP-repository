@@ -14,7 +14,7 @@ import uk.ac.imperial.presage2.util.location.LocationService;
 public class SimpleEnvService extends EnvironmentService{
 
 	
-	double totalDemand;
+	double totalDemand = 0;
 	
 	@Inject
 	public SimpleEnvService(EnvironmentSharedStateAccess sharedState) {
@@ -32,7 +32,7 @@ public class SimpleEnvService extends EnvironmentService{
 			return this.totalDemand;
 		} catch (Exception e)
 		{
-			return 909090.9090;
+			return 909090.9090;	//Fix this
 		}
 	}
 
