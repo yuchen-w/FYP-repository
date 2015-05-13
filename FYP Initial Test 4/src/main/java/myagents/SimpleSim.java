@@ -1,6 +1,5 @@
 package myagents;
 
-//import myagents.LocationVisualisationPlugin;
 import org.apache.log4j.Logger;
 
 
@@ -23,9 +22,6 @@ import uk.ac.imperial.presage2.util.location.area.AreaService;
 import uk.ac.imperial.presage2.core.simulator.RunnableSimulation;
 
 public class SimpleSim extends RunnableSimulation {
-
-	//private PoolAgentService game;
-	//private Scenario scenario;
 	
 	private final Logger logger = Logger.getLogger(this.getClass());
 	
@@ -40,9 +36,8 @@ public class SimpleSim extends RunnableSimulation {
 	@Override
 	public void initialiseScenario(Scenario scenario) {
 		addModule(new AbstractEnvironmentModule()
-				//.addParticipantEnvironmentService(SimpleParticipantService.class)
                                 .addParticipantGlobalEnvironmentService(SimpleEnvService.class)
-				.addActionHandler(DemandHandler.class)
+                                .addActionHandler(DemandHandler.class)
 				//Add the participant service and any other additional environment services here too
 				);
 		

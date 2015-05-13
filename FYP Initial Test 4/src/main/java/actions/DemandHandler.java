@@ -22,7 +22,6 @@ import uk.ac.imperial.presage2.core.environment.UnavailableServiceException;
 
 public class DemandHandler implements ActionHandler {
 
-	
 	final private Logger logger = Logger.getLogger(DemandHandler.class);
 	//final StatefulKnowledgeSession session;
 	
@@ -45,12 +44,13 @@ public class DemandHandler implements ActionHandler {
 
 	@Override
 	public Object handle(Action demand_action, UUID actor) throws ActionHandlingException {
-		// TODO Auto-generated method stub
 		getService();
 		if (demand_action instanceof Demand)
 		{
 			final Demand d = (Demand)demand_action;
-			//this.EnvService.addtoDemand(d.getQuantity());
+			logger.info("DemandHandler::Demand::d= " + d.getQuantity());
+			this.EnvService.addtoDemand(d.getQuantity());
+			logger.info("SimpleEnvService::totalDemand= " + this.EnvService.getTotalDemand());	//Debug
 		}
 		return null;
 	}
@@ -62,7 +62,7 @@ public class DemandHandler implements ActionHandler {
 				this.EnvService = serviceProvider
 						.getEnvironmentService(SimpleEnvService.class);
 			} catch (UnavailableServiceException e) {
-				//logger.warn("Could not load location service", e);
+				logger.warn("Could not get EnvService", e);
 			}
 		}
 		return EnvService;
