@@ -23,7 +23,6 @@ import uk.ac.imperial.presage2.core.environment.UnavailableServiceException;
 public class DemandHandler implements ActionHandler {
 
 	final private Logger logger = Logger.getLogger(DemandHandler.class);
-	//final StatefulKnowledgeSession session;
 	
 	SimpleEnvService EnvService;
 	final protected EnvironmentServiceProvider serviceProvider;
@@ -36,7 +35,6 @@ public class DemandHandler implements ActionHandler {
 		this.sharedState = sharedState;
 	}
 	
-	
 	@Override
 	public boolean canHandle(Action demand) {
 		return demand instanceof Demand;
@@ -48,9 +46,10 @@ public class DemandHandler implements ActionHandler {
 		if (demand_action instanceof Demand)
 		{
 			final Demand d = (Demand)demand_action;
-			logger.info("DemandHandler::Demand::d= " + d.getQuantity());
-			this.EnvService.addtoDemand(d.getQuantity());
-			logger.info("SimpleEnvService::totalDemand= " + this.EnvService.getTotalDemand());	//Debug
+			logger.info("DemandHandler: Demand d.Demand = " + d.getDemand() + " and Demand d.Generation = " + d.getGeneration());		//Debug
+			this.EnvService.addtoPool(d);
+			logger.info("SimpleEnvService::totalDemand= " + this.EnvService.getTotalDemand());										//Debug
+			logger.info("SimpleEnvService::totalGeneration= " + this.EnvService.getTotalGeneration());										//Debug
 		}
 		return null;
 	}

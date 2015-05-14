@@ -1,14 +1,14 @@
 package actions;
 
-//import actions.PlayerAction;
-
-public class Demand extends TimestampedAction { //originally extends PlayerAction
+public class Demand extends TimestampedAction { 
 	
-	double quantity;
+	double demand = 0;
+	double generation = 0;
 	
-	public Demand(double quantity)
+	public Demand(double demand, double generation)
 	{
-		this.quantity = quantity;
+		this.demand = demand;
+		this.generation = generation;
 	}
 	
 //	@Override
@@ -17,8 +17,12 @@ public class Demand extends TimestampedAction { //originally extends PlayerActio
 //				+ ", t=" + t + "]";
 //	}
 
-	public double getQuantity() {
-		return quantity;
+	public double getDemand() {
+		return demand;
+	}
+	
+	public double getGeneration(){
+		return generation;
 	}
 
 }
