@@ -27,7 +27,7 @@ public class SimpleSim extends RunnableSimulation {
 	public int size;
 	
 	@Parameter(name = "agents", optional = true)
-	public int agents = 2;
+	public int agents;
 
 	@Override
 	public void initialiseScenario(Scenario scenario) {
@@ -46,9 +46,6 @@ public class SimpleSim extends RunnableSimulation {
 					Random.randomInt(size), 
 					Random.randomInt(size)
 					));
-		}
-		
+		}	
 	}
-        
-        
 }
