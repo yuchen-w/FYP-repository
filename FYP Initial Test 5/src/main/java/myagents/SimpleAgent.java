@@ -36,6 +36,12 @@ public class SimpleAgent extends AbstractParticipant
         super(id, name);
         this.AgentDemand = new Demand(consumption, allocation);
     }
+    
+    SimpleAgent(UUID id, String name, double consumption, double allocation, String behaviour) 
+    {
+        super(id, name);
+        this.AgentDemand = new Demand(consumption, allocation);
+    }
 
     @Initialisor
     public void init() 
@@ -54,10 +60,12 @@ public class SimpleAgent extends AbstractParticipant
 
     @Step
     public void step(int t) throws ActionHandlingException {
-        logger.info("My consumption is: " 	+ this.AgentDemand.getDemand());
+        logger.info("My required Demand is: " 	+ this.AgentDemand.getDemand());
         logger.info("My generation is: " 	+ this.AgentDemand.getGeneration());
+        logger.info("My allocation is: "+ this.AgentDemand.getAllocation());
         
-        try {
+        try 
+        {
 			environment.act(AgentDemand, getID(), authkey);
 		} catch (ActionHandlingException e) {
 			logger.warn("Failed to add demand to the pool", e);

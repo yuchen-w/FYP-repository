@@ -48,8 +48,10 @@ public class DemandHandler implements ActionHandler {
 			final Demand d = (Demand)demand_action;
 			logger.info("DemandHandler: Demand d.Demand = " + d.getDemand() + " and Demand d.Generation = " + d.getGeneration());		//Debug
 			this.EnvService.addtoPool(d);
+			this.EnvService.takefromPool(d);
 			logger.info("SimpleEnvService::totalDemand= " + this.EnvService.getTotalDemand());										//Debug
 			logger.info("SimpleEnvService::totalGeneration= " + this.EnvService.getTotalGeneration());										//Debug
+			logger.info("SimpleEnvService::available= " + this.EnvService.getAvailable());
 		}
 		return null;
 	}

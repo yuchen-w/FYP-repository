@@ -28,7 +28,10 @@ public class SimpleSim extends RunnableSimulation {
 	
 	@Parameter(name = "agents", optional = true)
 	public int agents;
-
+	
+	@Parameter(name = "allocation", optional = true)
+	public String allocation;
+	
 	@Override
 	public void initialiseScenario(Scenario scenario) {
 		addModule(new AbstractEnvironmentModule()
@@ -46,6 +49,15 @@ public class SimpleSim extends RunnableSimulation {
 					Random.randomInt(size), 
 					Random.randomInt(size)
 					));
-		}	
+		}
+		
+//		for (int i = 0; i < agents; i++) {
+//			scenario.addAgent(new SimpleAgent(
+//					Random.randomUUID(),
+//					"agent" + i,
+//					10, 
+//					8
+//					));
+//		}	
 	}
 }
