@@ -48,15 +48,6 @@ public class SimpleAgent extends AbstractParticipant
     {
         super.initialise();
     }
-    
-    @Inject
-    public void setServiceProvider(EnvironmentServiceProvider serviceProvider) {
-        try {
-            this.EnvService = serviceProvider.getEnvironmentService(SimpleEnvService.class);
-        } catch (UnavailableServiceException e) {
-            logger.warn("unable to load SimpleEnvService class", e);
-        }
-    }
 
     @Step
     public void step(int t) throws ActionHandlingException {
